@@ -1,5 +1,4 @@
-# Enze-Hu
-#Python Part (data cleaning and processing)
+#Python Part (data cleaning and processing) (Done by Enze Hu)
 import pandas as pd
 # Use the pandas to convert the type of csv to data frames
 df = pd.read_csv("C:\\nbnb\\Used Cars for Sale in Irvine, CA _with Photos_CSV - TrueCar.csv")
@@ -21,7 +20,7 @@ df['Make'] = df['Make'].replace({"Land": "Land Rover"})
 df.to_csv('dataGGG.csv', index=False)
 
 
-#R Part (data visualization)
+#R Part (data visualization) (Done by Enze Hu and his teammates)
 df1 <- data.frame(x = data$Year, y = data$Price)
 #Plot the relation between price and year of made
 plot(df1$x, df1$y, ylim = c(0, 300), xlab = "Year of Made", ylab = "Price /k") 
