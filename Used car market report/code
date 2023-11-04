@@ -1,1 +1,45 @@
+#Python Part (data cleaning and processing) (Done by Enze Hu)
+import pandas as pd
 
+# Use the pandas to convert the type of csv to data frames
+df = pd.read_csv("C:\\nbnb\\Used Cars for Sale in Irvine, CA _with Photos_CSV - TrueCar.csv")
+
+# Split the combined columns in the data frames and inplace
+df[['Make', 'Model']] = df['truncate'].str.split(' ',1, expand=True)
+df.drop(['truncate'], axis=1, inplace=True)
+df[['Accident', 'Owner', 'Purpose']] = df['Circumstance'].str.split(', ', expand=True)
+df.drop(['Circumstance'], axis=1, inplace=True)
+df[['Exterior', 'Interior']] = df['Color'].str.split(', ', expand=True)
+df.drop(['Color'], axis=1, inplace=True)
+
+# Fill the null value
+df['Discount'].fillna("No Discount", inplace=True)
+df['Certification'].fillna("No Certification", inplace=True)
+df['Price_Level'].fillna("None", inplace=True)
+df['Price'].fillna('No Price', inplace=True)
+
+# Hardcode to replace the special brand name from the splitting step
+df['Make'] = df['Make'].replace({"Land": "Land Rover"})
+
+# Convert the data frames back to csv format
+df.to_csv('dataGGG.csv', index=False)
+
+
+#R Part (data visualization) (Done by Enze Hu and his teammates)
+df1 <- read.csv("Used Cars for Sale in Irvine, CA _with Photos_CSV - TrueCar.csv", header = TRUE)
+df1 <- data.frame(x = data$Year, y = data$Price)
+
+#Plot the relation between price and year of made
+plot(df1$x, df1$y, ylim = c(0, 300), xlab = "Year of Made", ylab = "Price /k") 
+
+#Plot the distribution of year of made.
+hist(data$Year, xlab = "Year of Made", xlim= c(1995, 2025), col = c("Red","SkyBlue"), main = "Distribution of year", breaks =30)
+
+#Plot the distribution of price
+hist(data$Price, xlab = "Price /k",xlim=c(0,300), ylim = c(0,300), col = c("Red","SkyBlue"), main = "Distribution of price",breaks =300)
+library(ggplot2)
+ggplot(data,aes(x=hedge.ratio))+geom_density(fill="red",alpha=.3)+
+labs(title="Distribution of Make",x="price", y="make") + theme(plot.title = element_text(hjust = 0.5))
+ggplot(data, aes(x=year, fill=exterior color))+geom_density(alpha=.3)+
+ labs(title="Distribution of Color",x="price", y="exterior color) +
+  theme(plot.title = element_text(hjust = 1.5))
