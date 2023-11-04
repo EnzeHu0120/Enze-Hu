@@ -1,4 +1,4 @@
-#Python Part (data cleaning and processing) (Done by Enze Hu)
+#Python Part (data cleaning and processing)
 import pandas as pd
 
 # Use the pandas to convert the type of csv to data frames
@@ -25,21 +25,19 @@ df['Make'] = df['Make'].replace({"Land": "Land Rover"})
 df.to_csv('dataGGG.csv', index=False)
 
 
-#R Part (data visualization) (Done by Enze Hu and his teammates)
-df1 <- read.csv("Used Cars for Sale in Irvine, CA _with Photos_CSV - TrueCar.csv", header = TRUE)
-df1 <- data.frame(x = data$Year, y = data$Price)
+#R Part (data visualization)
+df <- read.csv("dataGGG.csv", header = TRUE)
+year <- df$Year
+price_num <- gsub('[$]', '', df$Price)
+price_num2 <- gsub('[,]', '', price_num)
+price_int <- as.numeric(price_num2)
+price_k <- price_int/1000
 
 #Plot the relation between price and year of made
-plot(df1$x, df1$y, ylim = c(0, 300), xlab = "Year of Made", ylab = "Price /k") 
+plot(year, price_k, ylim = c(0, 300), xlab = "Year of Made", ylab = "Price /k") 
 
 #Plot the distribution of year of made.
-hist(data$Year, xlab = "Year of Made", xlim= c(1995, 2025), col = c("Red","SkyBlue"), main = "Distribution of year", breaks =30)
+hist(year, xlab = "Year of Made", xlim= c(1995, 2025), col = c("Red","SkyBlue"), main = "Distribution of year", breaks =30)
 
 #Plot the distribution of price
-hist(data$Price, xlab = "Price /k",xlim=c(0,300), ylim = c(0,300), col = c("Red","SkyBlue"), main = "Distribution of price",breaks =300)
-library(ggplot2)
-ggplot(data,aes(x=hedge.ratio))+geom_density(fill="red",alpha=.3)+
-labs(title="Distribution of Make",x="price", y="make") + theme(plot.title = element_text(hjust = 0.5))
-ggplot(data, aes(x=year, fill=exterior color))+geom_density(alpha=.3)+
- labs(title="Distribution of Color",x="price", y="exterior color) +
-  theme(plot.title = element_text(hjust = 1.5))
+hist(price_k, xlab = "Price /k",xlim=c(0,300), ylim = c(0,300), col = c("Red","SkyBlue"), main = "Distribution of price",breaks =300)
