@@ -1,0 +1,6 @@
+Number of Documents: 30792
+Number of [unique] words: 152173
+Database: CS121Project3
+Objects:185970
+Collections: 2
+Size of database: 601568995.0 bytes
